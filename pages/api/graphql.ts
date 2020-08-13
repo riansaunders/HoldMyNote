@@ -15,9 +15,11 @@ const schema = buildSchemaSync({
 });
 
 if (admin.apps.length < 1) {
-  const serviceAccount = require("../../firebase-key.json");
+  const creds = JSON.parse(process.env.FIREBASE_CONFIG || "{}")
+
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(creds),
+    // credential: admin.credential.cert(process.env.FIREBASE_CONFIG || {}),
     databaseURL: "https://holdmynote.firebaseio.com",
   });
 }

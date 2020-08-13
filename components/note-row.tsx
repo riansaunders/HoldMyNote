@@ -29,6 +29,9 @@ const noteStyles = makeStyles((theme) =>
     deleteButton: {
       // visibility: "hidden",
     },
+    completed: {
+      textDecoration: "line-through"
+    },
     noteRow: {
       "&:hover + .deleteButton": {
         visibility: "visible",
@@ -65,6 +68,7 @@ export const NoteItem = (props: NoteRowProps) => {
             <MuiInputBase
               autoFocus
               value={content}
+              className={completed ? classes.completed : ''}
               onChange={(e) => {
                 const newContent = e.target.value; 
                 if (newContent.length < 1) {

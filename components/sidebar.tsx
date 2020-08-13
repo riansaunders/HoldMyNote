@@ -190,10 +190,10 @@ export function Sidebar() {
           </Grid>
           <Grid item xs={12}>
             <Box marginTop={2} />
-            <a href="https://github.com/riansaunders/HoldMyNote">
-              View the source code.
+            <a href="https://riansaunders.com">
+              Made by Rian Saunders
             </a>
-            <sub>(This was only built for a small full stack demonstration.)</sub>
+
           </Grid>
         </Box>
       </aside>

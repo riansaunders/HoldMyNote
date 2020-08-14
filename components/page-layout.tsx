@@ -1,21 +1,21 @@
 import Head from "next/head";
 import NoteEditor from "../components/note-editor";
 import Sidebar from "../components/sidebar";
-
-import { Box, makeStyles, createStyles } from "@material-ui/core";
+import NavBar from "../components/navbar";
+import { Box, makeStyles, createStyles, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      margin: `0 50px`,
-      display: "flex",
+      // margin: `0 auto`,
     },
     content: {
-        width: "600px",
-        maxWidth: "600px",
-        marginLeft: theme.spacing(30),
-        marginTop: theme.spacing(10),
-      },
+      margin: '0 auto',
+      maxWidth: "600px",
+      // width: "600px",
+      // maxWidth: "600px",
+      marginTop: theme.spacing(10),
+    },
 
     [theme.breakpoints.up("xl")]: {
       container: {
@@ -33,19 +33,15 @@ export default function Layout(props: LayoutProps) {
   const classes = useStyles();
 
   return (
-    <Box className={classes.container}>
-      <Head>
-        <title>HoldMyNote</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <aside>
-        <Sidebar />
-      </aside>
-      <main>
-          <Box className={classes.content}>
-          {props.children}
-          </Box>
-      </main>
-    </Box>
+    <>
+    <NavBar />
+      <Box className={classes.container}>
+        <Head>
+          <title>HoldMyNote</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Box className={classes.content}>{props.children}</Box>
+      </Box>
+    </>
   );
 }

@@ -85,11 +85,9 @@ export default function NoteEditor(props: NoteEditorProps) {
   const router = useRouter();
   const note = props.note;
 
-
-  const [theTodos, setTheTodos] = useState<INoteItem[]>( []);
+  const [theTodos, setTheTodos] = useState<INoteItem[]>([]);
   const [updateNote, updateResult] = useMutation(UPDATE_NOTE);
   const [createNote, createResult] = useMutation(CREATE_NOTE);
-
 
   const initTodoString: string =
     note?.items.map((todo) => todo.content + "\n").join() || "";
@@ -152,7 +150,7 @@ export default function NoteEditor(props: NoteEditorProps) {
                 },
               })
                 .then((data) => {
-                  console.log("DONE")
+                  console.log("DONE");
                   router.push(`/note/${data.data.updateNote.id}`);
                   actions.setSubmitting(false);
                 })
@@ -177,8 +175,8 @@ export default function NoteEditor(props: NoteEditorProps) {
                 },
               })
                 .then((data) => {
-                  console.log("DONE")
-                  console.log(data)
+                  console.log("DONE");
+                  console.log(data);
                   router.push(`/note/${data.data.createNote.id}`);
                   actions.setSubmitting(false);
                 })
@@ -203,6 +201,7 @@ export default function NoteEditor(props: NoteEditorProps) {
                     fullWidth
                     size="large"
                     style={{ flexGrow: 1 }}
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
               </Grid>

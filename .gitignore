@@ -116,3 +116,4 @@ dist
 .pnp.*
 
 firebase-key.json
+.DS_Store

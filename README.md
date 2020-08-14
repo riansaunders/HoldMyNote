@@ -3,7 +3,6 @@ This is a [Next.js](https://nextjs.org/) application available at https://holdmy
 
 Features:
 * [Firebase](https://firebase.com)
-    * Auth
 * [MongoDB](https://mongodb.com)
     * Mongoose
     * Typegoose

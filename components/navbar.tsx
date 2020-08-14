@@ -1,9 +1,18 @@
+import React, { useState, useContext } from "react";
+
 import {
-  Button,
-  Grid,
-  Box,
+  AppBar,
+  Toolbar,
+  Typography,
   makeStyles,
   createStyles,
+  IconButton,
+  Theme,
+  Tooltip,
+  Menu,
+  MenuItem,
+  Box,
+  Button,
   Divider,
   Dialog,
   DialogTitle,
@@ -25,154 +34,148 @@ import {
   InputBase,
 } from "formik-material-ui";
 import { mixed, object, string } from "yup";
-import Link from "next/link";
-
 import { Formik, Form, Field } from "formik";
-
-import { useState, useContext } from "react";
-
-import firebase from "firebase";
-
 import { UserContext } from "../client/user.context";
 
-const useStyles = makeStyles((theme) =>
+import Link from "next/link";
+import firebase from "firebase";
+
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      margin: `0 50px`,
+    appBar: {
+      backgroundColor: "black",
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    icon: {
+      color: "white",
+      "&:hover": {
+        color: "black",
+        backgroundColor: "white",
+      },
+    },
+    toolbar: {
+      justifyContent: "space-between",
+    },
+    toolbarCt: {
+      //   margin: "0 auto",
+      maxWidth: "1100px",
+      justifyContent: "center",
+      justifyItems: "center",
       display: "flex",
-    },
-    sidebarItem: {
-      height: "60px",
-      width: "100%",
-      maxWidth: "150px",
-      borderRadius: "20px",
-      "& .MuiButton-label": {
-        marginLeft: "1em",
-        justifyContent: "normal",
-        fontSize: "14px",
-      },
-    },
-    sidebar: {
-      height: "100%",
-    },
-    sidebarContainer: {
-      maxWidth: theme.spacing(28),
-      borderRight: "1px solid #e6e6e6",
-      // width: "270px",
-      height: "100vh",
-      paddingTop: theme.spacing(4),
-    },
-    noteInputContainer: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      overflowY: "auto",
-      maxHeight: "400px",
-    },
-    [theme.breakpoints.up("md")]: {
-      sideBarItem: {
-        maxWidth: "226px",
-      },
-    },
-    [theme.breakpoints.up("xl")]: {
-      container: {
-        // margin: "0 300px",
-      },
     },
   })
 );
 
-export function Sidebar() {
+export const NavBar: React.FC = () => {
   const classes = useStyles();
 
   const userContext = useContext(UserContext);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
-
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const menuOpen = Boolean(anchorEl);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
-      <aside className={classes.sidebar}>
-        <nav>
-          <h3>HoldMyNote</h3>
-        </nav>
-
-        <Box className={classes.sidebarContainer}>
-          <Grid container direction="row">
-            <Grid item md={12}>
-              <Link href="/" passHref>
-                <Button className={classes.sidebarItem} startIcon={<NoteAdd />}>
-                  New Note
-                </Button>
-              </Link>
-            </Grid>
-            <Grid item md={12}>
-              <Link href="/feed" passHref>
-                <Button className={classes.sidebarItem} startIcon={<History />}>
-                  Feed
-                </Button>
-              </Link>
-            </Grid>
-
-            {!userContext.user && (
-              <>
-                <Grid item md={12}>
-                  <Button
-                    className={classes.sidebarItem}
-                    startIcon={<ExitToApp />}
-                    onClick={() => setSignInOpen(true)}
-                  >
-                    Sign In
-                  </Button>
-                </Grid>
-                <Grid item md={12}>
-                  <Button
-                    className={classes.sidebarItem}
-                    startIcon={<PersonAdd />}
-                    onClick={() => setSignUpOpen(true)}
-                  >
-                    Sign Up
-                  </Button>
-                </Grid>
-              </>
-            )}
-
-            {userContext.user && (
-              <>
-                <Grid item md={12}>
-                  {/* FIXME: This is null immediately after signing in, not a big deal. */}
-                  <Link href={`/profile/`} passHref>
-                    <Button
-                      className={classes.sidebarItem}
-                      startIcon={<AccountCircle />}
-                    >
-                      Profile
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item md={12}>
-                  <Box marginTop={5} />
-                  <Divider />
-                </Grid>
-                <Grid item md={12}>
-                  <Box marginTop={1} />
-                  <Button
-                    className={classes.sidebarItem}
-                    onClick={() => firebase.auth().signOut()}
-                  >
-                    Sign Out
-                  </Button>
-                </Grid>
-              </>
-            )}
-          </Grid>
-          <Grid item xs={12}>
-            <Box marginTop={2} />
-            <a href="https://github.com/riansaunders/HoldMyNote">
-              Made by Rian Saunders
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <Typography variant="h6" noWrap>
+            HoldMyNote
+          </Typography>
+          <div className={classes.grow} />
+          <Link href="/">
+            <a>
+              <Tooltip title="Add Note">
+                <IconButton className={classes.icon}>
+                  <NoteAdd />
+                </IconButton>
+              </Tooltip>
             </a>
-          </Grid>
-        </Box>
-      </aside>
+          </Link>
+          <Link href="/feed">
+            <a>
+              <Tooltip title="Feed">
+                <IconButton className={classes.icon}>
+                  <History />
+                </IconButton>
+              </Tooltip>
+            </a>
+          </Link>
+          {!userContext.signedIn && (
+            <>
+              <Tooltip title="Sign In">
+                <IconButton
+                  className={classes.icon}
+                  onClick={() => setSignInOpen(true)}
+                >
+                  <ExitToApp />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Sign Up">
+                <IconButton
+                  className={classes.icon}
+                  onClick={() => setSignUpOpen(true)}
+                >
+                  <PersonAdd />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+          {userContext.signedIn && (
+            <>
+              <Tooltip title="My Account">
+                <IconButton className={classes.icon} onClick={handleMenuOpen}>
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
+              {/* <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu> */}
+              <Menu
+                open={menuOpen}
+                onClose={handleMenuClose}
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                // transformOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Link href="/profile">
+                  <a style={{ textDecoration: "none", color: "black" }}>
+                    <MenuItem>{userContext.user?.displayName}</MenuItem>
+                  </a>
+                </Link>
+                {/* <MenuItem> */}
+                <Divider />
+                {/* </MenuItem> */}
+
+                <MenuItem onClick={() => firebase.auth().signOut()}>
+                  Sign Out
+                </MenuItem>
+              </Menu>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
       <Dialog open={signUpOpen} onClose={() => setSignUpOpen(false)}>
         <DialogTitle>Sign Up</DialogTitle>
         <DialogContent>
@@ -338,6 +341,6 @@ export function Sidebar() {
       </Dialog>
     </>
   );
-}
+};
 
-export default Sidebar;
+export default NavBar;

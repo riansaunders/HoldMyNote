@@ -1,20 +1,16 @@
 import Head from "next/head";
 import NoteEditor from "../components/note-editor";
-import Sidebar from "../components/sidebar";
 import NavBar from "../components/navbar";
 import { Box, makeStyles, createStyles, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      // margin: `0 auto`,
     },
     content: {
       margin: '0 auto',
       maxWidth: "600px",
-      // width: "600px",
-      // maxWidth: "600px",
-      marginTop: theme.spacing(10),
+      marginTop: theme.spacing(7),
     },
 
     [theme.breakpoints.up("xl")]: {

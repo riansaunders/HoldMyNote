@@ -19,7 +19,7 @@ import {
   InputBase,
 } from "formik-material-ui";
 
-import { CREATE_NOTE, UPDATE_NOTE } from "../client/queries.ts";
+import { CREATE_NOTE, UPDATE_NOTE } from "../client/queries";
 import { useRouter } from "next/router";
 import { ToggleButton } from "./toggle-button";
 import { Formik, Form, Field } from "formik";

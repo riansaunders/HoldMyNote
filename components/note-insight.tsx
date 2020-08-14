@@ -9,13 +9,13 @@ import {
   makeStyles,
   createStyles,
 } from "@material-ui/core";
-import { Cloud, Edit, Launch } from "@material-ui/icons";
+import { Edit, Delete } from "@material-ui/icons";
 import Link from "next/link";
 import PlaceholderCloud from "../components/placeholder-cloud";
 
 export interface NoteInsightProps {
   note: INote;
-  hideControls?: boolean;
+  hideView?: boolean;
 }
 
 const useStyles = makeStyles((theme) =>
@@ -53,27 +53,29 @@ export default function NoteInsight(props: NoteInsightProps) {
               <h3 className={classes.heading}>{note.title}</h3>
             </Grid>
             <Grid item>
-              {!props.hideControls && (
-                <Grid container>
-                  <Grid item>
-                    <Link href={`/edit/${note.id}`} passHref>
-                      <Button startIcon={<Edit />} size="small">
-                        Edit
-                      </Button>
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Button startIcon={<Launch />} size="small">
-                      Share
+              <Grid container>
+                <Grid item>
+                  <Link href={`/edit/${note.id}`} passHref>
+                    <Button startIcon={<Edit />} size="small">
+                      Edit
                     </Button>
-                  </Grid>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href={`/delete/${note.id}`} passHref>
+                    <Button startIcon={<Delete />} size="small">
+                      Delete
+                    </Button>
+                  </Link>
+                </Grid>
+                {!props.hideView && (
                   <Grid item>
                     <Link href={`/note/${note.id}`} passHref>
                       <Button size="small">View</Button>
                     </Link>
                   </Grid>
-                </Grid>
-              )}
+                )}
+              </Grid>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" className={classes.recentInfo}>

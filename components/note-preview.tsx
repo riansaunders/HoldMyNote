@@ -40,7 +40,10 @@ export default function NotePreview(props: NotePreviewProps) {
             {note.items.map((item) => {
               return (
                 <>
-                  <Checkbox checked={item.complete} disableRipple />
+                  <Checkbox
+                    checked={item.complete}
+                    disableRipple
+                  />
                   {item.content}
                   <br />
                 </>

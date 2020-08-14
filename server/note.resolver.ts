@@ -15,6 +15,12 @@ class NoteItemInput {
 }
 
 @InputType()
+class DeleteNoteInput {
+  @Field((type) => ID)
+  public id!: mongoose.Types.ObjectId;
+}
+
+@InputType()
 class NoteInput implements Partial<Note> {
   @Field()
   public title?: string;
@@ -135,8 +141,11 @@ export class NoteResolver {
   }
 
   @Mutation(() => Note)
-  public async deleteNote(@Arg("id") id: string, @Ctx() ctx: ApiContext) {
-    const note = await NoteModel.findById(id);
+  public async deleteNote(
+    @Arg("input") input: DeleteNoteInput,
+    @Ctx() ctx: ApiContext
+  ) {
+    const note = await NoteModel.findById(input.id);
     if (typeof note === "undefined" || !note) {
       return undefined;
     }

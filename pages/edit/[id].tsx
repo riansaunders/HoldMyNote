@@ -5,6 +5,7 @@ import { FIND_NOTE } from "../../client/queries";
 import { useQuery } from "@apollo/client";
 import { CircularProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import LoaderAnimation from "../../components/loader-animation";
 
 export default function Home() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Layout>
-        {loading && <CircularProgress />}
+        {loading && <LoaderAnimation />}
         {error && <Alert severity="error">Oops! Something went wrong!</Alert>}
         {data && <NoteEditor note={data.note} />}
       </Layout>

@@ -1,4 +1,4 @@
-import {gql} from "@apollo/client"
+import { gql } from "@apollo/client";
 
 export const FIND_NOTE = gql`
   query FindNote($id: String!) {
@@ -18,6 +18,27 @@ export const FIND_NOTE = gql`
   }
 `;
 
+export const DELETE_NOTE = gql`
+  mutation DeleteNote($input: DeleteNoteInput!) {
+    deleteNote(input: $input) {
+      id
+    }
+  }
+`;
+export const CREATE_NOTE = gql`
+  mutation CreateNote($input: NoteInput!) {
+    createNote(input: $input) {
+      id
+    }
+  }
+`;
+export const UPDATE_NOTE = gql`
+  mutation UpdateNote($input: UpdateNoteInput!) {
+    updateNote(input: $input) {
+      id
+    }
+  }
+`;
 
 export const FIND_NOTES = gql`
   query FindNote {

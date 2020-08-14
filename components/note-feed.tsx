@@ -5,7 +5,8 @@ import { useQuery } from "@apollo/client";
 
 import { Box, CircularProgress, Checkbox } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-
+import LoaderAnimation from "./loader-animation";
+import Link from "next/link";
 export interface NoteFeedProps {
   targetUser?: string;
 }
@@ -16,7 +17,7 @@ export default function NoteFeed(props: NoteFeedProps) {
     //   userID: props.targetUser,
     // },
   });
-Checkbox
+  Checkbox;
   const vn = {
     title: "Something cool",
     id: "",
@@ -29,15 +30,25 @@ Checkbox
   };
   return (
     <>
-      {loading && <CircularProgress />}
+      {loading && <LoaderAnimation />}
       {error && (
         <Alert severity="error">
           Oops! Cannot load the feed! That sucks :-(
         </Alert>
       )}
-      {data && (
+
+      {data && data.notes.length === 0 && (
         <>
-          {/* {data.note.items.map((im: any) => { */}
+          <Alert severity="info">
+            We don't have any notes yet!{" "}
+            <Link href="/">
+              <a>Create One</a>
+            </Link>
+          </Alert>
+        </>
+      )}
+      {data && data.notes.length > 0 && (
+        <>
           {data.notes.map((im: any) => {
             return (
               <>

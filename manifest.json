@@ -1,19 +1,4 @@
 {
   "version": 2,
-  "operations": [
-    {
-      "signature": "13b4dc3c39e2b6c8a0a53bd6e5595d08c3646ecbb1c6aa25aa846066aa75bb4f",
-      "document": "mutation CreateNote($input:NoteInput!){createNote(input:$input){__typename id}}",
-      "metadata": {
-        "engineSignature": ""
-      }
-    },
-    {
-      "signature": "365de9ada04c8cbca435ada806dc2c2f44a190293e836fb9da67879e14365179",
-      "document": "mutation UpdateNote($input:UpdateNoteInput!){updateNote(input:$input){__typename id}}",
-      "metadata": {
-        "engineSignature": ""
-      }
-    }
-  ]
+  "operations": []
 }

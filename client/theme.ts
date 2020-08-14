@@ -18,10 +18,14 @@ export const theme = createMuiTheme({
     },
   },
   spacing: 10,
+  typography: {
+    fontFamily: `Montserrat, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'`,
+  },
   overrides: {
     MuiAppBar: {
       root: {
         boxShadow: "none",
+        height: '70px',
       },
     },
     MuiButton: {

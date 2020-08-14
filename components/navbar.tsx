@@ -91,9 +91,13 @@ export const NavBar: React.FC = () => {
     <>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" noWrap>
-            HoldMyNote
-          </Typography>
+          <Link href="/">
+            <a style={{color: "white", textDecoration: "none"}}>
+              <Typography variant="h6" noWrap>
+                HoldMyNote
+              </Typography>
+            </a>
+          </Link>
           <div className={classes.grow} />
           <Link href="/">
             <a>
@@ -140,18 +144,6 @@ export const NavBar: React.FC = () => {
                   <AccountCircle />
                 </IconButton>
               </Tooltip>
-              {/* <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu> */}
               <Menu
                 open={menuOpen}
                 onClose={handleMenuClose}
@@ -164,10 +156,7 @@ export const NavBar: React.FC = () => {
                     <MenuItem>{userContext.user?.displayName}</MenuItem>
                   </a>
                 </Link>
-                {/* <MenuItem> */}
                 <Divider />
-                {/* </MenuItem> */}
-
                 <MenuItem onClick={() => firebase.auth().signOut()}>
                   Sign Out
                 </MenuItem>

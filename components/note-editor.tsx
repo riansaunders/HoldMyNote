@@ -19,6 +19,7 @@ import {
   InputBase,
 } from "formik-material-ui";
 
+import { CREATE_NOTE, UPDATE_NOTE } from "../client/queries.ts";
 import { useRouter } from "next/router";
 import { ToggleButton } from "./toggle-button";
 import { Formik, Form, Field } from "formik";
@@ -63,21 +64,6 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const CREATE_NOTE = gql`
-  mutation CreateNote($input: NoteInput!) {
-    createNote(input: $input) {
-      id
-    }
-  }
-`;
-const UPDATE_NOTE = gql`
-  mutation UpdateNote($input: UpdateNoteInput!) {
-    updateNote(input: $input) {
-      id
-    }
-  }
-`;
-
 export default function NoteEditor(props: NoteEditorProps) {
   const classes = useStyles();
   const userContext = useContext(UserContext);
@@ -85,7 +71,9 @@ export default function NoteEditor(props: NoteEditorProps) {
   const router = useRouter();
   const note = props.note;
 
-  const [theTodos, setTheTodos] = useState<INoteItem[]>([]);
+  const [theTodos, setTheTodos] = useState<INoteItem[]>(
+    note && note.items.length > 0 ? [...note.items] : []
+  );
   const [updateNote, updateResult] = useMutation(UPDATE_NOTE);
   const [createNote, createResult] = useMutation(CREATE_NOTE);
 
@@ -199,7 +187,6 @@ export default function NoteEditor(props: NoteEditorProps) {
                     label="Title"
                     placeholder="Untitled"
                     fullWidth
-                    size="large"
                     style={{ flexGrow: 1 }}
                     InputLabelProps={{ shrink: true }}
                   />

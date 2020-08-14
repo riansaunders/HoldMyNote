@@ -87,6 +87,7 @@ export const NoteItem = (props: NoteRowProps) => {
           <Grid item xs={1}>
             <IconButton
               className={classes.deleteButton}
+              tabIndex={-1}
               onClick={() => {
                 setDeleted(true);
                 props.onDeleteClicked();

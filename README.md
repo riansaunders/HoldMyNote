@@ -1,4 +1,4 @@
-# HoldMyNote, A Full Stack Demonstation
+# HoldMyNote, A Full Stack Demonstration
 This is a [Next.js](https://nextjs.org/) application available at https://holdmynote.com and deployed on Vercel.
 
 Features:
